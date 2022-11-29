@@ -1,0 +1,29 @@
+(Instalar dotnet-entityframework)
+dotnet tool install --global dotnet-ef
+
+CRIAR API:
+1 - dotnet new webapi (construir a estrutura de arquivos, necessarios)
+2 - Instalar NuGet Package Manager
+	CTRL+SHIFT+P
+	> Nuget Package Manager: Add package
+		> Pomelo.EntityframeworkCore.Mysql (Last .Ver)
+		> Microsoft.EntityFrameworkCore (Last .Ver)
+		> Microsoft.EntityFrameworkCore.Design (Last .Ver)
+		> Microsoft.AspNet.WebApi.Cors (Last .Ver)
+		> Newtonsoft.Json (Last .Ver)
+
+3 - dotnet build (verificar se ocorreu algum erro)
+4 - Alterar o lanch.json 
+5 - dotnet run (subir o projeto)
+
+dotnet ef dbcontext scaffold "server={caminho};user id={usuario MySQL};password={senha do usuario};database={nome do banco de dados}" Pomelo.EntityFrameworkCore.MySql -o Models --data-annotations --force
+
+HABILITAR O CORS:
+
+1- Abrir a pasta "Program.cs"
+2- Adicionar após a declaração da variável "builder" > builder.Services.AddCors();
+3- Adicionar após a declaração da variável "app" > app.UseCors(c => {
+                                                            c.AllowAnyHeader();
+                                                            c.AllowAnyOrigin();
+                                                            c.AllowAnyMethod();
+                                                        });
